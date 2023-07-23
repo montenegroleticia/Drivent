@@ -10,9 +10,13 @@ export async function getBooking(req: AuthenticatedRequest, res: Response) {
     const booking = await bookingService.getBookingService(userId);
     return res.status(httpStatus.OK).send(booking);
   } catch (e) {
-    return res.sendStatus(httpStatus.NO_CONTENT);
+    if (e.name == 'NotFoundError') {
+      return res.status(httpStatus.NOT_FOUND).send(e.message);
+    }
+    return res.sendStatus(httpStatus.BAD_REQUEST);
   }
 }
+
 export async function postBooking(req: AuthenticatedRequest, res: Response) {
   try {
     const { userId } = req;

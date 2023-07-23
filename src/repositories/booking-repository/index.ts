@@ -6,6 +6,7 @@ async function findBooking(userId: number) {
       userId,
     },
     select: {
+      id: true,
       Room: true,
     },
   });
