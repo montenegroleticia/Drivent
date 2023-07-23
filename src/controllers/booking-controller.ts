@@ -42,7 +42,7 @@ export async function putBooking(req: AuthenticatedRequest, res: Response) {
     const bookingId = Number(req.params.bookingId);
 
     const booking = await bookingService.putBookingService(bookingId, roomId, userId);
-    return res.status(httpStatus.OK).send(booking);
+    return res.status(httpStatus.OK).send({ bookingId: booking.id });
   } catch (e) {
     if (e.name == 'ForbiddenError') {
       return res.status(httpStatus.FORBIDDEN).send(e.message);
