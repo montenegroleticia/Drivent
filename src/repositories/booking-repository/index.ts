@@ -12,12 +12,14 @@ async function findBooking(userId: number) {
   });
 }
 
-function findAllBookings(roomId: number) {
-  return prisma.booking.findMany({
+async function findAllBookings(roomId: number) {
+  const bookings = await prisma.booking.findMany({
     where: {
       roomId,
     },
   });
+
+  return bookings
 }
 
 async function findRoom(roomId: number) {
