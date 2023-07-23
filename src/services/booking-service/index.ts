@@ -44,6 +44,14 @@ async function putBookingService(bookingId: number, roomId: number, userId: numb
   const booking = await bookingRepository.findAllBookings(userId);
   if (!booking) throw notFoundError();
 
+  const bookingUser = await bookingRepository.findBooking(userId);
+  if (!bookingUser) {
+    throw {
+      name: 'ForbiddenError',
+      message: 'Not authorized to access',
+    };
+  }
+
   const room = await bookingRepository.findRoom(roomId);
   if (!room) throw notFoundError();
 
