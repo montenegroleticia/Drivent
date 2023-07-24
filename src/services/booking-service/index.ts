@@ -29,7 +29,7 @@ async function postBookingService(userId: number, roomId: number) {
   const room = await bookingRepository.findRoom(roomId);
   if (!room) throw notFoundError();
 
-  if (room.Booking.length === room.capacity) {
+  if (room.Booking.length >= room.capacity) {
     throw {
       name: 'ForbiddenError',
       message: 'Not authorized to access',
@@ -55,7 +55,7 @@ async function putBookingService(bookingId: number, roomId: number, userId: numb
   const room = await bookingRepository.findRoom(roomId);
   if (!room) throw notFoundError();
 
-  if (room.Booking.length === room.capacity) {
+  if (room.Booking.length >= room.capacity) {
     throw {
       name: 'ForbiddenError',
       message: 'Not authorized to access',
